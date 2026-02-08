@@ -572,6 +572,188 @@
         footer a { color: var(--green-dim); text-decoration: none; }
         footer a:hover { color: var(--green); }
 
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 7px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 5px 12px;
+            border: 1px solid;
+            margin-left: 12px;
+            position: relative;
+            top: -3px;
+        }
+
+        .status-badge.released {
+            color: var(--green);
+            border-color: var(--green-dark);
+            background: rgba(0, 255, 65, 0.06);
+            text-shadow: 0 0 6px rgba(0, 255, 65, 0.3);
+        }
+
+        .status-badge.in-dev {
+            color: var(--amber);
+            border-color: rgba(255, 176, 0, 0.3);
+            background: rgba(255, 176, 0, 0.06);
+            text-shadow: 0 0 6px rgba(255, 176, 0, 0.3);
+        }
+
+        .status-badge.parked {
+            color: var(--text-dim);
+            border-color: var(--border);
+            background: rgba(96, 96, 96, 0.06);
+        }
+
+        /* Stack section */
+        .stack { padding: 80px 0; }
+
+        .stack-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-tag {
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stack-tag::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: var(--green-dark);
+            transition: all 0.3s;
+        }
+
+        .stack-tag:hover {
+            border-color: var(--border-green);
+            color: var(--green);
+        }
+
+        .stack-tag:hover::before {
+            background: var(--green);
+            box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+        }
+
+        .stack-tag .stack-icon {
+            color: var(--green-dim);
+            margin-right: 6px;
+            font-size: 11px;
+        }
+
+        /* Open Source section */
+        .opensource { padding: 80px 0; }
+
+        .os-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .os-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px 28px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .os-card:hover {
+            border-color: var(--border-green);
+            background: var(--bg-card-hover);
+        }
+
+        .os-card .os-label {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .os-card h3 {
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+            color: var(--green);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .os-card p {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .os-card a {
+            display: inline-block;
+            color: var(--green-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border: 1px solid var(--green-dark);
+            transition: all 0.2s;
+        }
+
+        .os-card a:hover {
+            color: var(--green);
+            border-color: var(--green-dim);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+        }
+
+        /* Footer links row */
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+            border-bottom-color: var(--green-dark);
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--border-green);
+            margin: 16px auto;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title { font-size: 28px; letter-spacing: 4px; }
@@ -582,6 +764,11 @@
             .writing-grid { grid-template-columns: 1fr; }
             .stats .container { gap: 32px; }
             .nav-links { gap: 16px; }
+            .os-grid { grid-template-columns: 1fr; }
+            .stack-grid { gap: 8px; }
+            .stack-tag { padding: 8px 14px; font-size: 11px; }
+            .status-badge { margin-left: 0; display: block; margin-top: 8px; width: fit-content; }
+            .footer-links { gap: 16px; }
         }
     </style>
 </head>
@@ -593,8 +780,9 @@
             <a href="#" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
             <div class="nav-links">
                 <a href="#projects">Projects</a>
+                <a href="#stack">Stack</a>
+                <a href="#opensource">Open Source</a>
                 <a href="#about">About</a>
-                <a href="#writing">Writing</a>
                 <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
@@ -646,7 +834,7 @@
                 <div class="project-info">
                     <div class="project-accent"></div>
                     <div class="project-tag">// Flagship</div>
-                    <div class="project-name">ELARA CORE</div>
+                    <div class="project-name">ELARA CORE <span class="status-badge released">Released</span></div>
                     <p class="project-desc">MCP server that gives AI assistants persistent memory, mood, episodic tracking, dream processing, and self-awareness. 34 tools across 11 modules. The AI remembers you.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
@@ -686,7 +874,7 @@
                 <div class="project-info">
                     <div class="project-accent"></div>
                     <div class="project-tag">// Mobile App</div>
-                    <div class="project-name">HANDYBILL</div>
+                    <div class="project-name">HANDYBILL <span class="status-badge in-dev">In Development</span></div>
                     <p class="project-desc">Invoice, expense, and mileage tracking for freelancers and small businesses. Dark theme, offline-first, accountant-ready data export with receipts and tax summaries.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Flutter</span>
@@ -719,7 +907,7 @@
                 <div class="project-info">
                     <div class="project-accent"></div>
                     <div class="project-tag">// Mobile App</div>
-                    <div class="project-name">PLANPULSE</div>
+                    <div class="project-name">PLANPULSE <span class="status-badge parked">Parked</span></div>
                     <p class="project-desc">Activity and time tracker with phone-free mode. Tracks how long you stay off your phone, with native Android usage stats integration and excluded apps management.</p>
                     <div class="project-tech">
                         <span class="tech-tag">Flutter</span>
@@ -728,7 +916,7 @@
                         <span class="tech-tag">Riverpod</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/aivelikivodja-bot/planpulse" target="_blank">GitHub</a>
+                        <a href="https://github.com/aivelikivodja-bot/planpulse" target="_blank">Source</a>
                     </div>
                 </div>
                 <div class="project-stats">
@@ -744,6 +932,63 @@
                         <div class="project-stat-value">60s</div>
                         <div class="project-stat-label">Auto-refresh</div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ STACK ] - - - - - - - -</div>
+
+    <!-- Stack -->
+    <section class="stack" id="stack">
+        <div class="container">
+            <div class="section-header">
+                <h2>// TECH STACK</h2>
+                <p>The tools behind the builds.</p>
+            </div>
+            <div class="stack-grid">
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Python</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Dart / Flutter</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Firebase</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> ChromaDB</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> MCP Protocol</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Pydantic</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Riverpod</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Kotlin</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Ollama</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> GitHub Actions</div>
+                <div class="stack-tag"><span class="stack-icon">&gt;</span> Linux / WSL</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ OPEN SOURCE ] - - - - - - - -</div>
+
+    <!-- Open Source -->
+    <section class="opensource" id="opensource">
+        <div class="container">
+            <div class="section-header">
+                <h2>// OPEN SOURCE</h2>
+                <p>Source-available. Built in the open.</p>
+            </div>
+            <div class="os-grid">
+                <div class="os-card">
+                    <div class="os-label">PyPI</div>
+                    <h3>pip install elara-core</h3>
+                    <p>Elara Core is published on PyPI. Install it, configure it, give your AI persistent memory in minutes.</p>
+                    <a href="https://pypi.org/project/elara-core/" target="_blank" rel="noopener noreferrer">View on PyPI &rarr;</a>
+                </div>
+                <div class="os-card">
+                    <div class="os-label">GitHub</div>
+                    <h3>aivelikivodja-bot</h3>
+                    <p>All projects are public on GitHub. Browse the source, open issues, fork and build your own. Contributions welcome.</p>
+                    <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener noreferrer">View Profile &rarr;</a>
+                </div>
+                <div class="os-card">
+                    <div class="os-label">License</div>
+                    <h3>BSL-1.1</h3>
+                    <p>Business Source License. Source-available, free for personal use. Production use allowed after the change date. Transparent by design.</p>
+                    <a href="https://github.com/aivelikivodja-bot/elara-core/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Read License &rarr;</a>
                 </div>
             </div>
         </div>
@@ -878,6 +1123,14 @@
     <!-- Footer -->
     <footer>
         <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://elara.navigatorbuilds.com" target="_blank" rel="noopener">Elara Docs</a>
+                <a href="https://pypi.org/project/elara-core/" target="_blank" rel="noopener">PyPI</a>
+                <a href="https://medium.com/@aivelikivodja" target="_blank" rel="noopener">Medium</a>
+                <a href="https://x.com/NavigatorBuilds" target="_blank" rel="noopener">X / Twitter</a>
+            </div>
+            <div class="footer-divider"></div>
             <p>Navigator Builds &mdash; <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
         </div>
     </footer>

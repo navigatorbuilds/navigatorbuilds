@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Navigator Builds</title>
+    <meta name="description" content="Detailed showcase of projects by Navigator Builds: Elara Core (AI memory system), HandyBill (invoice tracking), and PlanPulse (time tracking).">
+    <meta property="og:title" content="Projects — Navigator Builds">
+    <meta property="og:description" content="AI memory systems, mobile apps, and developer tools. Built solo, built right.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://navigatorbuilds.com/projects.html">
+    <meta name="keywords" content="Elara Core, MCP server, AI memory, Flutter apps, mobile development">
+    <link rel="canonical" href="https://navigatorbuilds.com/projects.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #0f0f0f;
+            --bg-card-hover: #141414;
+            --green: #00ff41;
+            --green-dim: #00cc33;
+            --green-dark: #003300;
+            --green-glow: rgba(0, 255, 65, 0.08);
+            --red: #ff0040;
+            --red-dim: #cc0033;
+            --cyan: #00e5ff;
+            --amber: #ffb000;
+            --text: #c0c0c0;
+            --text-dim: #606060;
+            --text-bright: #e0e0e0;
+            --border: #1a1a1a;
+            --border-green: #003300;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), 0 0 40px rgba(0, 255, 65, 0.1); }
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: var(--green);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            animation: flicker 8s infinite;
+        }
+
+        .nav-logo .red { color: var(--red); text-shadow: 0 0 10px rgba(255, 0, 64, 0.5); }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 32px;
+            color: var(--red);
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.6);
+            margin-bottom: 16px;
+            letter-spacing: 6px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        .ascii-divider {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            padding: 40px 0;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        /* Project Sections */
+        .project-section {
+            padding: 60px 0;
+        }
+
+        .project-header {
+            margin-bottom: 32px;
+        }
+
+        .project-status {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .project-status.released { color: var(--green); }
+        .project-status.development { color: var(--amber); }
+        .project-status.parked { color: var(--text-dim); }
+
+        .project-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 28px;
+            color: var(--green);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+
+        .project-description {
+            font-size: 16px;
+            color: var(--text-bright);
+            line-height: 1.9;
+            max-width: 900px;
+            margin-bottom: 24px;
+        }
+
+        /* Project Stats Bar */
+        .project-stats-bar {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            padding: 24px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'VT323', monospace;
+            font-size: 32px;
+            color: var(--green);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 6px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            margin-bottom: 32px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-green);
+            background: var(--bg-card-hover);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            color: var(--green-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            margin-bottom: 32px;
+        }
+
+        .tech-stack-label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            padding: 6px 14px;
+            background: #050505;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--green-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Links */
+        .project-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            padding: 10px 24px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .project-link:hover {
+            border-color: var(--green-dim);
+            color: var(--green);
+        }
+
+        .project-link.primary {
+            border-color: var(--green-dark);
+            color: var(--green);
+        }
+
+        .project-link.primary:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        /* Terminal Screenshot */
+        .terminal-demo {
+            background: #000;
+            border: 1px solid var(--border-green);
+            padding: 20px;
+            margin-bottom: 32px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .terminal-line {
+            margin-bottom: 4px;
+        }
+
+        .terminal-prompt { color: var(--green); }
+        .terminal-command { color: var(--cyan); }
+        .terminal-output { color: var(--text); }
+        .terminal-success { color: var(--green); }
+        .terminal-error { color: var(--red); }
+        .terminal-dim { color: var(--text-dim); }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-green);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        footer a { color: var(--green-dim); text-decoration: none; }
+        footer a:hover { color: var(--green); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title { font-size: 20px; letter-spacing: 3px; }
+            .project-title { font-size: 18px; letter-spacing: 2px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .project-stats-bar { gap: 20px; flex-direction: column; }
+            .nav-links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
+            <div class="nav-links">
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#writing">Writing</a>
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-title">PROJECTS</div>
+            <p class="page-subtitle">Detailed breakdown of what I'm building</p>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ ELARA CORE ] - - - - - - - -</div>
+
+    <!-- Elara Core -->
+    <section class="project-section" id="elara-core">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-status released">// RELEASED</div>
+                <h1 class="project-title">ELARA CORE</h1>
+                <p class="project-description">
+                    Persistent presence, mood, memory, and self-awareness for AI assistants. The MCP server that makes your AI remember who you are, what you're working on, and how you work together. 34 tools across 11 modules, 7 vector databases, and 19,000+ lines of Python.
+                </p>
+            </div>
+
+            <div class="project-stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value">19,130</div>
+                    <div class="stat-label">Lines of Python</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">34</div>
+                    <div class="stat-label">MCP Tools</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Vector DBs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">91</div>
+                    <div class="stat-label">Tests Passing</div>
+                </div>
+            </div>
+
+            <div class="terminal-demo">
+                <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">elara-init</span></div>
+                <div class="terminal-line"><span class="terminal-output">Elara Core v0.9.1 initializing...</span></div>
+                <div class="terminal-line"><span class="terminal-success">✓</span> <span class="terminal-output">Memory systems online</span></div>
+                <div class="terminal-line"><span class="terminal-success">✓</span> <span class="terminal-output">Mood tracking active</span></div>
+                <div class="terminal-line"><span class="terminal-success">✓</span> <span class="terminal-output">Episode system loaded</span></div>
+                <div class="terminal-line"><span class="terminal-success">✓</span> <span class="terminal-output">7 ChromaDB collections ready</span></div>
+                <div class="terminal-line"><span class="terminal-dim">---</span></div>
+                <div class="terminal-line"><span class="terminal-output">Session 68 starting...</span></div>
+                <div class="terminal-line"><span class="terminal-output">Last session: 2026-02-08 01:30 (6h ago)</span></div>
+                <div class="terminal-line"><span class="terminal-output">Mood: calm, focused (valence: 0.6, energy: 0.7)</span></div>
+                <div class="terminal-line"><span class="terminal-dim">---</span></div>
+                <div class="terminal-line"><span class="terminal-success">Ready.</span></div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-title">Semantic Memory</div>
+                    <p class="feature-desc">ChromaDB-backed vector search for memories, conversations, and milestones. Search by meaning, not keywords.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💭</div>
+                    <div class="feature-title">Mood Tracking</div>
+                    <p class="feature-desc">Persistent emotional state with valence, energy, and openness dimensions. Creates emotional imprints that outlast details.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">Episodic Memory</div>
+                    <p class="feature-desc">Work sessions with milestones, decisions, and insights. Tracks what happened, when, and why.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <div class="feature-title">Dream Processing</div>
+                    <p class="feature-desc">Weekly and monthly pattern detection. Project momentum, session trends, goal progress, narrative threads.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Goal Management</div>
+                    <p class="feature-desc">Track active goals, detect stale items, measure progress. Integrated with episodes and reasoning trails.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-title">Corrections System</div>
+                    <p class="feature-desc">Record mistakes to avoid repeating. Semantic search before tasks to surface relevant past errors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <div class="feature-title">Reasoning Trails</div>
+                    <p class="feature-desc">Track problem-solving chains: hypotheses, evidence, abandoned approaches, breakthroughs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Outcome Tracking</div>
+                    <p class="feature-desc">Link decisions to results. Close the learning loop. See what worked and what didn't.</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-stack-label">Tech Stack</div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.9+</span>
+                    <span class="tech-tag">MCP Protocol</span>
+                    <span class="tech-tag">ChromaDB</span>
+                    <span class="tech-tag">Pydantic</span>
+                    <span class="tech-tag">Ollama</span>
+                    <span class="tech-tag">Pytest</span>
+                </div>
+            </div>
+
+            <div class="project-links">
+                <a href="https://elara.navigatorbuilds.com" class="project-link primary" target="_blank">Live Site</a>
+                <a href="https://github.com/aivelikivodja-bot/elara-core" class="project-link" target="_blank">GitHub</a>
+                <a href="https://pypi.org/project/elara-core/" class="project-link" target="_blank">PyPI</a>
+                <a href="https://elara.navigatorbuilds.com/quickstart.html" class="project-link" target="_blank">Quickstart</a>
+                <a href="https://medium.com/@aivelikivodja/part-3-i-gave-my-ai-persistent-memory-0c1505335bfc" class="project-link" target="_blank">Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ HANDYBILL ] - - - - - - - -</div>
+
+    <!-- HandyBill -->
+    <section class="project-section" id="handybill">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-status development">// IN DEVELOPMENT</div>
+                <h1 class="project-title">HANDYBILL</h1>
+                <p class="project-description">
+                    Invoice, expense, and mileage tracking for freelancers and small businesses. Dark theme, offline-first architecture, accountant-ready data exports. Built with Flutter for Android, with Firebase backend and Riverpod state management.
+                </p>
+            </div>
+
+            <div class="project-stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value">17</div>
+                    <div class="stat-label">Screens</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Core Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">ZIP</div>
+                    <div class="stat-label">Data Export</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Bug Fixes Shipped</div>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <div class="feature-title">Invoice Generation</div>
+                    <p class="feature-desc">Create professional invoices with editable numbers, tax calculations, and PDF generation. Track status: draft, sent, paid.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <div class="feature-title">Expense Tracking</div>
+                    <p class="feature-desc">Log expenses with receipt photos, categories, and tax status. Automatic sync with Firebase backend.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <div class="feature-title">Mileage Logging</div>
+                    <p class="feature-desc">Track business mileage with automatic distance calculation. Export for tax deductions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-title">Accountant Export</div>
+                    <p class="feature-desc">One-tap ZIP export with CSVs, receipt images, and tax summaries. Ready for your accountant.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <div class="feature-title">Dark Theme</div>
+                    <p class="feature-desc">Professional dark UI throughout the app. Easy on the eyes during late-night work sessions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Offline-First</div>
+                    <p class="feature-desc">Works without internet. Local storage with Firebase sync when online. Never lose data.</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-stack-label">Tech Stack</div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Flutter 3.x</span>
+                    <span class="tech-tag">Dart</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Riverpod</span>
+                    <span class="tech-tag">Firestore</span>
+                    <span class="tech-tag">Firebase Auth</span>
+                </div>
+            </div>
+
+            <div class="project-links">
+                <a href="https://github.com/aivelikivodja-bot" class="project-link" target="_blank">GitHub (Private)</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ PLANPULSE ] - - - - - - - -</div>
+
+    <!-- PlanPulse -->
+    <section class="project-section" id="planpulse">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-status parked">// PARKED</div>
+                <h1 class="project-title">PLANPULSE</h1>
+                <p class="project-description">
+                    Activity and time tracker with phone-free tracking. Know how you spend your time, including time away from your phone. Native Android UsageStats integration with 60-second auto-refresh and excluded apps management. Built with Flutter, Dart, and Kotlin.
+                </p>
+            </div>
+
+            <div class="project-stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value">1,600</div>
+                    <div class="stat-label">Lines (phone-free)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Files</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">60s</div>
+                    <div class="stat-label">Auto-Refresh</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Commits</div>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <div class="feature-title">Activity Tracking</div>
+                    <p class="feature-desc">Log activities with start/stop times, categories, and notes. See daily totals and progress toward goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📵</div>
+                    <div class="feature-title">Phone-Free Counter</div>
+                    <p class="feature-desc">Always-visible counter showing how long you've stayed off your phone. Tappable for detailed analytics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Usage Analytics</div>
+                    <p class="feature-desc">Native Android UsageStats integration. See real phone usage data with excluded apps support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <div class="feature-title">Excluded Apps</div>
+                    <p class="feature-desc">Mark apps as excluded (Maps, Waze, etc.) so they don't count against phone-free time. Customizable list.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Daily Goals</div>
+                    <p class="feature-desc">Set activity time goals and track progress. Visual feedback on goal completion throughout the day.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-title">Auto-Refresh</div>
+                    <p class="feature-desc">Phone-free counter updates every 60 seconds automatically. Real-time feedback without manual intervention.</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-stack-label">Tech Stack</div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Flutter 3.x</span>
+                    <span class="tech-tag">Dart</span>
+                    <span class="tech-tag">Kotlin</span>
+                    <span class="tech-tag">Riverpod</span>
+                    <span class="tech-tag">Android UsageStats</span>
+                    <span class="tech-tag">MethodChannel</span>
+                </div>
+            </div>
+
+            <div class="project-links">
+                <a href="https://github.com/aivelikivodja-bot/planpulse" class="project-link" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - - - - - - - - - - - - - -</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Navigator Builds — <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> — Montenegro — 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
