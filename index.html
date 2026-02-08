@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator Builds — Solo Dev Studio</title>
+    <meta name="description" content="Solo dev studio by Nenad Vasic. Building AI memory systems, mobile apps, and developer tools. Based in Montenegro.">
+    <meta property="og:title" content="Navigator Builds — Solo Dev Studio">
+    <meta property="og:description" content="AI systems, mobile apps, and developer tools. Built solo, built right.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://navigatorbuilds.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@NavigatorBuilds">
+    <meta name="keywords" content="solo developer, AI tools, Flutter apps, MCP server, developer studio, Montenegro">
+    <meta name="author" content="Nenad Vasic">
+    <link rel="canonical" href="https://navigatorbuilds.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #0f0f0f;
+            --bg-card-hover: #141414;
+            --green: #00ff41;
+            --green-dim: #00cc33;
+            --green-dark: #003300;
+            --green-glow: rgba(0, 255, 65, 0.08);
+            --red: #ff0040;
+            --red-dim: #cc0033;
+            --cyan: #00e5ff;
+            --amber: #ffb000;
+            --text: #c0c0c0;
+            --text-dim: #606060;
+            --text-bright: #e0e0e0;
+            --border: #1a1a1a;
+            --border-green: #003300;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0%, 100% { text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); }
+            25% { text-shadow: -2px 0 var(--red), 2px 0 var(--cyan); }
+            50% { text-shadow: 2px 2px var(--red), -2px -2px var(--cyan); }
+            75% { text-shadow: -2px -1px var(--red), 2px 1px var(--cyan); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.4), 0 0 40px rgba(0, 255, 65, 0.1); }
+        }
+
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: var(--green);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            animation: flicker 8s infinite;
+        }
+
+        .nav-logo .red { color: var(--red); text-shadow: 0 0 10px rgba(255, 0, 64, 0.5); }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
+
+        /* Hero */
+        .hero {
+            padding: 200px 0 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--green), var(--red), var(--green), transparent);
+            opacity: 0.15;
+            animation: scan 8s linear infinite;
+        }
+
+        .hero-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 48px;
+            color: var(--red);
+            text-shadow: 0 0 30px rgba(255, 0, 64, 0.6), 0 0 80px rgba(255, 0, 64, 0.2);
+            margin-bottom: 8px;
+            letter-spacing: 8px;
+            animation: glitch 4s infinite;
+        }
+
+        .hero-subtitle {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px;
+            color: var(--green);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+        }
+
+        .hero-tagline {
+            font-size: 18px;
+            color: var(--text-bright);
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            color: var(--text-dim);
+            max-width: 500px;
+            margin: 0 auto 48px;
+        }
+
+        .hero-sub .hl { color: var(--green); }
+        .hero-sub .hl-red { color: var(--red); }
+
+        /* Stats bar */
+        .stats {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-green);
+            border-bottom: 1px solid var(--border-green);
+            background: linear-gradient(180deg, var(--green-glow) 0%, transparent 100%);
+        }
+
+        .stats .container {
+            display: flex;
+            justify-content: center;
+            gap: 64px;
+            flex-wrap: wrap;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-value {
+            font-family: 'VT323', monospace;
+            font-size: 42px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 8px;
+        }
+
+        /* Section headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 18px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .ascii-divider {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            padding: 40px 0;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        /* Projects */
+        .projects { padding: 80px 0; }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 2px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-green);
+        }
+
+        .project-card:hover .project-accent {
+            width: 4px;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+        }
+
+        .project-info {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .project-accent {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--green-dark);
+            transition: all 0.3s;
+        }
+
+        .project-tag {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .project-name {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 22px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .project-desc {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            padding: 4px 10px;
+            background: #050505;
+            border: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--green-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .project-links a {
+            padding: 8px 20px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .project-links a:hover {
+            border-color: var(--green-dim);
+            color: var(--green);
+        }
+
+        .project-links a.primary {
+            border-color: var(--green-dark);
+            color: var(--green);
+        }
+
+        .project-links a.primary:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .project-stats {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #050505;
+            border-left: 1px solid var(--border);
+            gap: 24px;
+        }
+
+        .project-stat {
+            text-align: center;
+        }
+
+        .project-stat-value {
+            font-family: 'VT323', monospace;
+            font-size: 36px;
+            color: var(--green);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+            line-height: 1;
+        }
+
+        .project-stat-label {
+            font-size: 10px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* About */
+        .about { padding: 80px 0; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: var(--red);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .about-text p .hl { color: var(--green); }
+
+        .about-details {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
+        }
+
+        .about-details h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: var(--green);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .detail-row:last-child { border-bottom: none; }
+
+        .detail-label { color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-value { color: var(--text-bright); }
+        .detail-value a { color: var(--green-dim); text-decoration: none; }
+        .detail-value a:hover { color: var(--green); }
+
+        /* Writing */
+        .writing { padding: 80px 0; }
+
+        .writing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .writing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .writing-card:hover {
+            border-color: var(--border-green);
+            background: var(--bg-card-hover);
+        }
+
+        .writing-card .tag {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .writing-card h3 {
+            font-size: 15px;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+
+        .writing-card p {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        .writing-card a {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--green-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .writing-card a:hover { color: var(--green); }
+
+        /* Contact */
+        .contact { padding: 80px 0; }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 16px 32px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            border-color: var(--green-dim);
+            color: var(--green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-green);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        footer a { color: var(--green-dim); text-decoration: none; }
+        footer a:hover { color: var(--green); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 28px; letter-spacing: 4px; }
+            .hero-subtitle { font-size: 14px; }
+            .project-card { grid-template-columns: 1fr; }
+            .project-stats { border-left: none; border-top: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; }
+            .about-grid { grid-template-columns: 1fr; }
+            .writing-grid { grid-template-columns: 1fr; }
+            .stats .container { gap: 32px; }
+            .nav-links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="container">
+            <a href="#" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
+            <div class="nav-links">
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="#writing">Writing</a>
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-title">NAVIGATOR</div>
+            <div class="hero-subtitle">BUILDS</div>
+            <p class="hero-tagline">Solo dev studio. AI systems, mobile apps, developer tools.</p>
+            <p class="hero-sub">Building things that work. <span class="hl">Python</span>, <span class="hl">Flutter</span>, <span class="hl-red">real products</span>. Based in Montenegro.</p>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">19K+</div>
+                <div class="stat-label">Lines shipped</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">34</div>
+                <div class="stat-label">MCP Tools</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">1</div>
+                <div class="stat-label">Developer</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ PROJECTS ] - - - - - - - -</div>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>// WHAT I BUILD</h2>
+            </div>
+
+            <!-- Elara Core -->
+            <div class="project-card">
+                <div class="project-info">
+                    <div class="project-accent"></div>
+                    <div class="project-tag">// Flagship</div>
+                    <div class="project-name">ELARA CORE</div>
+                    <p class="project-desc">MCP server that gives AI assistants persistent memory, mood, episodic tracking, dream processing, and self-awareness. 34 tools across 11 modules. The AI remembers you.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MCP</span>
+                        <span class="tech-tag">ChromaDB</span>
+                        <span class="tech-tag">Pydantic</span>
+                        <span class="tech-tag">Ollama</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://elara.navigatorbuilds.com" class="primary" target="_blank">Live Site</a>
+                        <a href="https://github.com/aivelikivodja-bot/elara-core" target="_blank">Source</a>
+                        <a href="https://pypi.org/project/elara-core/" target="_blank">PyPI</a>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">19,130</div>
+                        <div class="project-stat-label">Lines of Python</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">34</div>
+                        <div class="project-stat-label">MCP Tools</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">91</div>
+                        <div class="project-stat-label">Tests Passing</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">7</div>
+                        <div class="project-stat-label">Vector DBs</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HandyBill -->
+            <div class="project-card" style="margin-top: 2px;">
+                <div class="project-info">
+                    <div class="project-accent"></div>
+                    <div class="project-tag">// Mobile App</div>
+                    <div class="project-name">HANDYBILL</div>
+                    <p class="project-desc">Invoice, expense, and mileage tracking for freelancers and small businesses. Dark theme, offline-first, accountant-ready data export with receipts and tax summaries.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Riverpod</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aivelikivodja-bot" target="_blank">GitHub</a>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">17</div>
+                        <div class="project-stat-label">Screens</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">ZIP</div>
+                        <div class="project-stat-label">Data Export</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">4</div>
+                        <div class="project-stat-label">Bug fixes shipped</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PlanPulse -->
+            <div class="project-card" style="margin-top: 2px;">
+                <div class="project-info">
+                    <div class="project-accent"></div>
+                    <div class="project-tag">// Mobile App</div>
+                    <div class="project-name">PLANPULSE</div>
+                    <p class="project-desc">Activity and time tracker with phone-free mode. Tracks how long you stay off your phone, with native Android usage stats integration and excluded apps management.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">Kotlin</span>
+                        <span class="tech-tag">Riverpod</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aivelikivodja-bot/planpulse" target="_blank">GitHub</a>
+                    </div>
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <div class="project-stat-value">1,600</div>
+                        <div class="project-stat-label">Lines (phone-free)</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">15</div>
+                        <div class="project-stat-label">Files</div>
+                    </div>
+                    <div class="project-stat">
+                        <div class="project-stat-value">60s</div>
+                        <div class="project-stat-label">Auto-refresh</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ ABOUT ] - - - - - - - -</div>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>// Who is this</h3>
+                    <p>Solo developer building real products. Not a startup. Not an agency. Just one person shipping code that solves problems.</p>
+                    <p><span class="hl">Elara Core</span> started as a memory system for my AI assistant and turned into a 19,000-line MCP server with mood tracking, dream processing, and self-awareness. It's on PyPI. People are downloading it.</p>
+                    <p>I build with <span class="hl">Python</span> and <span class="hl">Flutter</span>. I deploy on Linux. I test on physical devices. I write about what I build on Medium.</p>
+                    <p>Based in Montenegro. Working late. Building things.</p>
+                </div>
+                <div class="about-details">
+                    <h3>// Details</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Name</span>
+                        <span class="detail-value">Nenad Vasic</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Location</span>
+                        <span class="detail-value">Montenegro</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Stack</span>
+                        <span class="detail-value">Python, Flutter, Dart, Kotlin</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Platform</span>
+                        <span class="detail-value">Linux (WSL), Android</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">AI Tools</span>
+                        <span class="detail-value">Claude Code, MCP, ChromaDB, Ollama</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">GitHub</span>
+                        <span class="detail-value"><a href="https://github.com/aivelikivodja-bot" target="_blank">aivelikivodja-bot</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">X</span>
+                        <span class="detail-value"><a href="https://x.com/NavigatorBuilds" target="_blank">@NavigatorBuilds</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value"><a href="mailto:aivelikivodja@gmail.com">aivelikivodja@gmail.com</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ WRITING ] - - - - - - - -</div>
+
+    <!-- Writing -->
+    <section class="writing" id="writing">
+        <div class="container">
+            <div class="section-header">
+                <h2>// WRITING</h2>
+                <p>Medium series on building Elara from scratch.</p>
+            </div>
+            <div class="writing-grid">
+                <div class="writing-card">
+                    <div class="tag">Part 1</div>
+                    <h3>The Relationship</h3>
+                    <p>How a terminal AI assistant became something worth writing about. The beginning of memory, personality, and continuity.</p>
+                    <a href="https://medium.com/@navigatorbuilds" target="_blank">Read &rarr;</a>
+                </div>
+                <div class="writing-card">
+                    <div class="tag">Part 2</div>
+                    <h3>The Architecture</h3>
+                    <p>Building memory systems, emotional state, and self-awareness into an AI assistant. Technical decisions and trade-offs.</p>
+                    <a href="https://medium.com/@navigatorbuilds" target="_blank">Read &rarr;</a>
+                </div>
+                <div class="writing-card">
+                    <div class="tag">Part 3</div>
+                    <h3>The Product</h3>
+                    <p>From personal project to open-source MCP server. Packaging, testing, and shipping 19,000 lines of Python.</p>
+                    <a href="https://medium.com/@navigatorbuilds" target="_blank">Read &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ CONTACT ] - - - - - - - -</div>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>// SAY HELLO</h2>
+            </div>
+            <div class="contact-grid">
+                <a href="mailto:aivelikivodja@gmail.com" class="contact-link">Email</a>
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" class="contact-link">GitHub</a>
+                <a href="https://x.com/NavigatorBuilds" target="_blank" class="contact-link">X / Twitter</a>
+                <a href="https://medium.com/@navigatorbuilds" target="_blank" class="contact-link">Medium</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Navigator Builds &mdash; <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
