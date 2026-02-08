@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Navigator Builds</title>
+    <meta name="description" content="Solo developer based in Europe. Building tools at the intersection of AI and productivity. One person. One AI. Shipping real things.">
+    <meta property="og:title" content="About — Navigator Builds">
+    <meta property="og:description" content="Solo dev studio building AI systems, mobile apps, and developer tools. Built in the open.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://navigatorbuilds.com/about.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About — Navigator Builds">
+    <meta name="twitter:description" content="One person. One AI. Shipping real things.">
+    <meta name="twitter:site" content="@NavigatorBuilds">
+    <meta name="author" content="Nenad Vasic">
+    <link rel="canonical" href="https://navigatorbuilds.com/about.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #0f0f0f;
+            --bg-card-hover: #141414;
+            --green: #00ff41;
+            --green-dim: #00cc33;
+            --green-dark: #003300;
+            --green-glow: rgba(0, 255, 65, 0.08);
+            --red: #ff0040;
+            --red-dim: #cc0033;
+            --cyan: #00e5ff;
+            --amber: #ffb000;
+            --text: #c0c0c0;
+            --text-dim: #606060;
+            --text-bright: #e0e0e0;
+            --border: #1a1a1a;
+            --border-green: #003300;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0%, 100% { text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); }
+            25% { text-shadow: -2px 0 var(--red), 2px 0 var(--cyan); }
+            50% { text-shadow: 2px 2px var(--red), -2px -2px var(--cyan); }
+            75% { text-shadow: -2px -1px var(--red), 2px 1px var(--cyan); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: var(--green);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            animation: flicker 8s infinite;
+        }
+
+        .nav-logo .red { color: var(--red); text-shadow: 0 0 10px rgba(255, 0, 64, 0.5); }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
+        .nav-links a.active { color: var(--green); }
+
+        /* Hero */
+        .hero {
+            padding: 180px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 42px;
+            color: var(--red);
+            text-shadow: 0 0 30px rgba(255, 0, 64, 0.6), 0 0 80px rgba(255, 0, 64, 0.2);
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+            animation: glitch 4s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-bright);
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .ascii-divider {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            padding: 40px 0;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        /* Section */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 18px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.9;
+            max-width: 900px;
+        }
+
+        .section-header p .hl { color: var(--green); }
+
+        /* Content cards */
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--green-dark);
+        }
+
+        .content-card h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: var(--green);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .content-card p {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .content-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-card p .hl { color: var(--green); }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 16px;
+        }
+
+        .content-card ul li {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.9;
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .content-card ul li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--green-dim);
+        }
+
+        /* Connect links */
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 700px;
+        }
+
+        .connect-link {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .connect-link:hover {
+            border-color: var(--border-green);
+            background: var(--bg-card-hover);
+        }
+
+        .connect-label {
+            font-size: 13px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .connect-value {
+            font-size: 14px;
+            color: var(--green);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-green);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        footer a { color: var(--green-dim); text-decoration: none; }
+        footer a:hover { color: var(--green); }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+            border-bottom-color: var(--green-dark);
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--border-green);
+            margin: 16px auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 28px; letter-spacing: 4px; }
+            .nav-links { gap: 16px; }
+            .connect-grid { grid-template-columns: 1fr; }
+            .content-card { padding: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
+            <div class="nav-links">
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#stack">Stack</a>
+                <a href="index.html#opensource">Open Source</a>
+                <a href="about.html" class="active">About</a>
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-title">ABOUT</div>
+            <p class="hero-subtitle">One person. One AI. Shipping real things.</p>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ WHO ] - - - - - - - -</div>
+
+    <!-- Who -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>// WHO</h2>
+                <p>Solo developer based in Europe. Building tools at the intersection of AI and productivity.</p>
+            </div>
+            <div class="content-card">
+                <h3>ONE PERSON. ONE AI. SHIPPING REAL THINGS.</h3>
+                <p>Not a startup. Not an agency. Just one person writing code that solves actual problems.</p>
+                <p>I build <span class="hl">Elara Core</span>, a 19,000-line MCP server that gives AI assistants persistent memory, mood tracking, and self-awareness. It's on PyPI. People are downloading it. It works.</p>
+                <p>I build <span class="hl">HandyBill</span>, a Flutter app for invoice and expense tracking. Dark theme only. Offline-first. Accountant-ready.</p>
+                <p>I build <span class="hl">PlanPulse</span>, a time tracker with phone-free mode. Shipped 15 files of native Android integration in two sessions.</p>
+                <p>Based in Montenegro. Working late. Building things.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ THE APPROACH ] - - - - - - - -</div>
+
+    <!-- The Approach -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>// THE APPROACH</h2>
+                <p>How things get built here.</p>
+            </div>
+            <div class="content-card">
+                <h3>PRINCIPLES</h3>
+                <ul>
+                    <li>Ship fast, iterate publicly</li>
+                    <li>Dark themes only (half joke, half serious)</li>
+                    <li>Source-available over proprietary</li>
+                    <li>Local-first over cloud-dependent</li>
+                    <li>Built WITH AI, not just FOR AI</li>
+                </ul>
+            </div>
+            <div class="content-card">
+                <h3>PROCESS</h3>
+                <p>I test on physical devices. I deploy from the terminal. I write tests that actually run. I document what matters.</p>
+                <p>When something breaks, I fix it in the next session. When something works, I ship it immediately.</p>
+                <p>No meetings. No standups. No sprint planning. Just code, commit, push.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ THE STACK ] - - - - - - - -</div>
+
+    <!-- The Stack -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>// THE STACK</h2>
+                <p>The tools that build the products.</p>
+            </div>
+            <div class="content-card">
+                <h3>PRIMARY LANGUAGES</h3>
+                <ul>
+                    <li>Python for backends and AI tooling</li>
+                    <li>Flutter/Dart for mobile apps</li>
+                    <li>Kotlin for native Android features</li>
+                </ul>
+            </div>
+            <div class="content-card">
+                <h3>INFRASTRUCTURE & TOOLING</h3>
+                <ul>
+                    <li>Firebase for auth and cloud features</li>
+                    <li>ChromaDB for semantic search</li>
+                    <li>MCP Protocol for AI integration</li>
+                    <li>Ollama for local LLM inference</li>
+                    <li>GitHub Actions for CI/CD</li>
+                    <li>Linux/WSL as development environment</li>
+                </ul>
+            </div>
+            <div class="content-card">
+                <h3>AI WORKFLOW</h3>
+                <p>I build with <span class="hl">Claude Code</span> (formerly Claude Terminal). It's my dev partner. We've shipped 19,000+ lines of Python together.</p>
+                <p>I gave it persistent memory, mood tracking, and episodic recall. Now it remembers our conversations, tracks project momentum, and learns from past mistakes.</p>
+                <p>That's what Elara Core does. It's the memory system powering my AI assistant.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ascii-divider">- - - - - - - - [ CONNECT ] - - - - - - - -</div>
+
+    <!-- Connect -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>// CONNECT</h2>
+                <p>Links and contact information.</p>
+            </div>
+            <div class="connect-grid">
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener" class="connect-link">
+                    <span class="connect-label">GitHub</span>
+                    <span class="connect-value">aivelikivodja-bot</span>
+                </a>
+                <a href="https://x.com/NavigatorBuilds" target="_blank" rel="noopener" class="connect-link">
+                    <span class="connect-label">X / Twitter</span>
+                    <span class="connect-value">@NavigatorBuilds</span>
+                </a>
+                <a href="https://medium.com/@aivelikivodja" target="_blank" rel="noopener" class="connect-link">
+                    <span class="connect-label">Medium</span>
+                    <span class="connect-value">@aivelikivodja</span>
+                </a>
+                <a href="mailto:aivelikivodja@gmail.com" class="connect-link">
+                    <span class="connect-label">Email</span>
+                    <span class="connect-value">Available on request</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://elara.navigatorbuilds.com" target="_blank" rel="noopener">Elara Docs</a>
+                <a href="https://pypi.org/project/elara-core/" target="_blank" rel="noopener">PyPI</a>
+                <a href="https://medium.com/@aivelikivodja" target="_blank" rel="noopener">Medium</a>
+                <a href="https://x.com/NavigatorBuilds" target="_blank" rel="noopener">X / Twitter</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>Navigator Builds &mdash; <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
