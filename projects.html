@@ -507,6 +507,110 @@
         </div>
     </section>
 
+    <div class="ascii-divider">- - - - - - - - [ ELARA LAYER 1 ] - - - - - - - -</div>
+
+    <!-- Elara Layer 1 -->
+    <section class="project-section" id="elara-layer1">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-status released">// RELEASED</div>
+                <h1 class="project-title">ELARA LAYER 1</h1>
+                <p class="project-description">
+                    Reference implementation of the Elara Protocol's local validation layer. Hash, sign, and store digital work with post-quantum cryptography — offline, on any device, in under 2ms. Self-sovereign identities with CRYSTALS-Dilithium3 and SPHINCS+ dual signatures. SQLite-backed DAG. CLI for validating files from the terminal. The minimum viable network is one device.
+                </p>
+            </div>
+
+            <div class="project-stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value">~2,000</div>
+                    <div class="stat-label">Lines of Python</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50</div>
+                    <div class="stat-label">Tests Passing</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2ms</div>
+                    <div class="stat-label">Validation Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Modules</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">9</div>
+                    <div class="stat-label">CLI Commands</div>
+                </div>
+            </div>
+
+            <div class="terminal-demo">
+                <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">elara init</span></div>
+                <div class="terminal-line"><span class="terminal-output">Generating A-profile HUMAN identity...</span></div>
+                <div class="terminal-line"><span class="terminal-output">  Primary: CRYSTALS-Dilithium3 (FIPS 204)</span></div>
+                <div class="terminal-line"><span class="terminal-output">  Anchor:  SPHINCS+-SHA2-192f (FIPS 205)</span></div>
+                <div class="terminal-line"><span class="terminal-success">Identity created in 2ms</span></div>
+                <div class="terminal-line"><span class="terminal-dim">---</span></div>
+                <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-command">elara validate myfile.txt</span></div>
+                <div class="terminal-line"><span class="terminal-success">Validated: myfile.txt</span></div>
+                <div class="terminal-line"><span class="terminal-output">  Record:  019c6772-31fc-77dc-9f71-d3f4a02bd437</span></div>
+                <div class="terminal-line"><span class="terminal-output">  Signed:  Dilithium3 (3293 bytes)</span></div>
+                <div class="terminal-line"><span class="terminal-output">           SPHINCS+ (35664 bytes)</span></div>
+                <div class="terminal-line"><span class="terminal-output">  Time:    1ms</span></div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <div class="feature-title">Dual PQC Signatures</div>
+                    <p class="feature-desc">Dilithium3 (FIPS 204) primary + SPHINCS+ (FIPS 205) anchor signatures. No classical crypto. Post-quantum from genesis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <div class="feature-title">Self-Sovereign Identity</div>
+                    <p class="feature-desc">No central authority. Generate a cryptographic identity with only entropy and computation. Five entity types: HUMAN, AI, DEVICE, ORGANIZATION, COMPOSITE.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Local DAG</div>
+                    <p class="feature-desc">SQLite-backed directed acyclic graph. Records reference parents, forming a tamper-evident chain. Query by time, classification, creator, or structure.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-title">Four Classification Levels</div>
+                    <p class="feature-desc">PUBLIC, PRIVATE, RESTRICTED, SOVEREIGN — cryptographically bound to each record at creation time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-title">Binary Wire Format</div>
+                    <p class="feature-desc">Compact binary serialization with 4-byte magic, length-prefixed fields, and UUID v7 time-ordered identifiers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Zero Network Required</div>
+                    <p class="feature-desc">Validate locally. No blockchain, no cloud, no subscription. The same cryptographic proof whether online or completely offline.</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-stack-label">Tech Stack</div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.10+</span>
+                    <span class="tech-tag">liboqs (Open Quantum Safe)</span>
+                    <span class="tech-tag">CRYSTALS-Dilithium3</span>
+                    <span class="tech-tag">SPHINCS+-SHA2-192f</span>
+                    <span class="tech-tag">SHA3-256</span>
+                    <span class="tech-tag">SQLite</span>
+                    <span class="tech-tag">Pytest</span>
+                </div>
+            </div>
+
+            <div class="project-links">
+                <a href="https://github.com/navigatorbuilds/elara-layer1" class="project-link primary" target="_blank">GitHub</a>
+                <a href="https://github.com/navigatorbuilds/elara-protocol" class="project-link" target="_blank">Whitepapers</a>
+            </div>
+        </div>
+    </section>
+
     <div class="ascii-divider">- - - - - - - - [ ELARA CORE ] - - - - - - - -</div>
 
     <!-- Elara Core -->
