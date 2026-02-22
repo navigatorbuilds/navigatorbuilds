@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy — Navigator Builds</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117; --bg-card: #161b22; --green: #3b82f6; --green-dim: #2563eb;
+            --green-dark: #14532d; --red: #ef4444; --text: #e5e7eb; --text-dim: #6b7280;
+            --text-bright: #f3f4f6; --border: #1e293b; --border-green: #14532d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 0; background: rgba(13, 17, 23, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-green); }
+        nav .container { max-width: 1100px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 12px; color: var(--green); text-decoration: none; text-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        .nav-logo .red { color: var(--red); text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; transition: all 0.2s; }
+        .nav-links a:hover { color: var(--green); }
+
+        .page-header { padding: 140px 0 40px; }
+        .page-header h1 { font-size: 22px; color: var(--green); letter-spacing: 4px; margin-bottom: 8px; }
+        .page-header p { color: var(--text-dim); font-size: 13px; }
+
+        .legal { padding: 0 0 80px; }
+        .legal h2 { font-size: 14px; color: var(--green); margin: 32px 0 12px; letter-spacing: 1px; }
+        .legal p { font-size: 14px; color: var(--text); margin-bottom: 12px; line-height: 1.8; }
+        .legal ul { margin: 0 0 12px 20px; }
+        .legal li { font-size: 14px; color: var(--text); margin-bottom: 6px; line-height: 1.8; }
+
+        .refund-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-green);
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .refund-box h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .refund-box p { font-size: 15px; }
+
+        footer { padding: 40px 0; border-top: 1px solid var(--border-green); text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
+        .footer-links a:hover { color: var(--green); }
+        .footer-divider { width: 60px; height: 1px; background: var(--border-green); margin: 16px auto; }
+        footer p { font-size: 12px; color: var(--text-dim); }
+        footer a { color: var(--green-dim); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container" style="max-width:1100px">
+            <a href="/" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="https://github.com/navigatorbuilds" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="page-header">
+            <h1>// REFUND POLICY</h1>
+            <p>Last updated: February 22, 2026</p>
+        </section>
+
+        <section class="legal">
+            <div class="refund-box">
+                <h3>14-Day Money Back</h3>
+                <p>If a product doesn't work as described, you get a full refund within 14 days. No questions asked.</p>
+            </div>
+
+            <h2>How It Works</h2>
+            <p>We want you to be satisfied with your purchase. If you're not, here's the process:</p>
+
+            <h2>Eligible for Refund</h2>
+            <ul>
+                <li>Purchase made within the last 14 days</li>
+                <li>Product doesn't work as described on the pricing page</li>
+                <li>Technical issues that prevent you from using the product</li>
+                <li>Product was significantly different from what was advertised</li>
+            </ul>
+
+            <h2>Not Eligible for Refund</h2>
+            <ul>
+                <li>More than 14 days since purchase</li>
+                <li>You simply changed your mind (but we'll consider it — just ask)</li>
+                <li>Issues caused by third-party tools or incompatible environments not listed in requirements</li>
+            </ul>
+
+            <h2>How to Request a Refund</h2>
+            <p>Email <strong>nenadvasic@protonmail.com</strong> with:</p>
+            <ul>
+                <li>Your order number or email used for purchase</li>
+                <li>Brief description of the issue</li>
+            </ul>
+            <p>We'll respond within 48 hours. Refunds are processed through Paddle and typically appear within 5-10 business days.</p>
+
+            <h2>Contact</h2>
+            <p>Navigator Builds<br>Nenad Vasic<br>nenadvasic@protonmail.com</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container" style="max-width:1100px">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/refunds.html">Refunds</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>Navigator Builds &mdash; <a href="https://github.com/navigatorbuilds">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>

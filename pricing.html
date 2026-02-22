@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — Navigator Builds</title>
+    <meta name="description" content="AI persona packs and configuration bundles for Claude Code, Cursor, and MCP-compatible tools. Ready-to-use cognitive systems.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #1c2333;
+            --green: #3b82f6;
+            --green-dim: #2563eb;
+            --green-dark: #14532d;
+            --green-glow: rgba(59, 130, 246, 0.08);
+            --red: #ef4444;
+            --cyan: #3b82f6;
+            --amber: #f97316;
+            --text: #e5e7eb;
+            --text-dim: #6b7280;
+            --text-bright: #f3f4f6;
+            --border: #1e293b;
+            --border-green: #14532d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-green);
+        }
+
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+
+        .nav-logo {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 12px;
+            color: var(--green);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        .nav-logo .red { color: var(--red); text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--green); text-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+
+        .page-header {
+            padding: 160px 0 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 28px;
+            color: var(--green);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            letter-spacing: 6px;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: var(--text-dim);
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin: 60px 0;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px 32px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--border-green);
+            background: var(--bg-card-hover);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--green-dark);
+            background: var(--bg-card-hover);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -1px; left: 0; right: 0;
+            text-align: center;
+            font-size: 8px;
+            letter-spacing: 3px;
+            padding: 6px;
+            background: var(--green);
+            color: var(--bg);
+            font-weight: 600;
+        }
+
+        .pricing-tier {
+            font-size: 9px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .pricing-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            color: var(--green);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 36px;
+            color: var(--text-bright);
+            margin-bottom: 4px;
+        }
+
+        .pricing-price span { font-size: 14px; color: var(--text-dim); }
+
+        .pricing-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            font-size: 13px;
+            color: var(--text);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features li::before {
+            content: '>';
+            color: var(--green-dim);
+            margin-right: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .pricing-features li:last-child { border-bottom: none; }
+
+        .pricing-cta {
+            display: block;
+            text-align: center;
+            padding: 12px 24px;
+            border: 1px solid var(--green-dark);
+            color: var(--green);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+        }
+
+        .pricing-cta:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .pricing-note {
+            text-align: center;
+            padding: 40px 0 80px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .pricing-note a { color: var(--green-dim); text-decoration: none; }
+        .pricing-note a:hover { color: var(--green); }
+
+        .faq { padding: 60px 0 80px; max-width: 700px; margin: 0 auto; }
+
+        .faq h2 {
+            font-size: 14px;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-item h3 {
+            font-size: 14px;
+            color: var(--text-bright);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-green);
+            text-align: center;
+        }
+
+        .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; transition: all 0.2s; }
+        .footer-links a:hover { color: var(--green); }
+        .footer-divider { width: 60px; height: 1px; background: var(--border-green); margin: 16px auto; }
+        footer p { font-size: 12px; color: var(--text-dim); }
+        footer a { color: var(--green-dim); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">NAVIGATOR<span class="red">/</span>BUILDS</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/projects.html">Projects</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="https://github.com/navigatorbuilds" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>// PRICING</h1>
+            <p>AI persona packs and cognitive system configurations for Claude Code, Cursor, Windsurf, and MCP-compatible tools.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-tier">// Starter</div>
+                <div class="pricing-name">Persona Pack</div>
+                <div class="pricing-price">$12 <span>one-time</span></div>
+                <p class="pricing-desc">A single persona — fully configured, ready to drop in.</p>
+                <ul class="pricing-features">
+                    <li>Complete CLAUDE.md persona file</li>
+                    <li>Matching config &amp; hooks setup</li>
+                    <li>Example prompts &amp; workflows</li>
+                    <li>Setup guide with screenshots</li>
+                    <li>Choose: Dev, Founder, Researcher, Therapist, or Ops</li>
+                    <li>Free updates for life</li>
+                </ul>
+                <a href="#" class="pricing-cta">Coming Soon</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-tier">// Recommended</div>
+                <div class="pricing-name">Elara Pro</div>
+                <div class="pricing-price">$47 <span>one-time</span></div>
+                <p class="pricing-desc">All 5 personas plus the full cognitive system.</p>
+                <ul class="pricing-features">
+                    <li>All 5 persona packs included</li>
+                    <li>Overnight brain configuration</li>
+                    <li>Memory consolidation settings</li>
+                    <li>3D Cognition setup (models, predictions, principles)</li>
+                    <li>Goal system + corrections pre-seeded</li>
+                    <li>Boot sequence &amp; intention hook</li>
+                    <li>30-page setup guide</li>
+                </ul>
+                <a href="#" class="pricing-cta">Coming Soon</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-tier">// Complete</div>
+                <div class="pricing-name">Elara Complete</div>
+                <div class="pricing-price">$97 <span>one-time</span></div>
+                <p class="pricing-desc">The full system with advanced modules and video walkthrough.</p>
+                <ul class="pricing-features">
+                    <li>Everything in Pro</li>
+                    <li>Knowledge graph templates</li>
+                    <li>Decision registry pre-seeded with dev anti-patterns</li>
+                    <li>RSS briefing feeds curated by persona</li>
+                    <li>Email integration walkthrough</li>
+                    <li>Video setup walkthrough</li>
+                    <li>Priority support via email</li>
+                </ul>
+                <a href="#" class="pricing-cta">Coming Soon</a>
+            </div>
+        </div>
+
+        <p class="pricing-note">
+            All purchases are one-time. No subscriptions. Free updates included.<br>
+            Built on <a href="https://github.com/navigatorbuilds/elara-core" target="_blank">Elara Core</a> (open source, 46 tools, 39K+ lines).
+            Payments handled by <a href="https://paddle.com" target="_blank" rel="noopener">Paddle</a>.
+        </p>
+
+        <div class="faq">
+            <h2>// FAQ</h2>
+
+            <div class="faq-item">
+                <h3>What do I need to use these?</h3>
+                <p>Claude Code (Anthropic's CLI), Cursor, Windsurf, or any MCP-compatible AI coding tool. Elara Core installed via pip. Python 3.10+.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is Elara Core free?</h3>
+                <p>Yes. Elara Core is open source (BSL-1.1) and always will be. These packs are pre-configured, optimized setups built on top of it — saving you hours of configuration.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What format are the files?</h3>
+                <p>ZIP download containing markdown files (CLAUDE.md, .cursorrules), JSON configs, and a setup guide. Drop them into your project and go.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I get a refund?</h3>
+                <p>Yes, within 14 days of purchase if the product doesn't work as described. See our <a href="/refunds.html">refund policy</a>.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Do I get updates?</h3>
+                <p>Yes. When Elara Core releases a new version, we update the packs. You get free access to all future versions of your purchased tier.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/refunds.html">Refunds</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>Navigator Builds &mdash; <a href="https://github.com/navigatorbuilds">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
