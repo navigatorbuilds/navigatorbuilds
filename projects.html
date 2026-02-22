@@ -356,6 +356,37 @@
         footer a { color: var(--green-dim); text-decoration: none; }
         footer a:hover { color: var(--green); }
 
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+            border-bottom-color: var(--green-dark);
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--border-green);
+            margin: 16px auto;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .page-title { font-size: 20px; letter-spacing: 3px; }
@@ -898,7 +929,18 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>Navigator Builds — <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> — Montenegro — 2026</p>
+            <div class="footer-links">
+                <a href="https://github.com/aivelikivodja-bot" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://elara.navigatorbuilds.com" target="_blank" rel="noopener">Elara Docs</a>
+                <a href="https://pypi.org/project/elara-core/" target="_blank" rel="noopener">PyPI</a>
+                <a href="https://x.com/NavigatorBuilds" target="_blank" rel="noopener">X / Twitter</a>
+                <a href="/pricing.html">Pricing</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/refunds.html">Refunds</a>
+            </div>
+            <div class="footer-divider"></div>
+            <p>Navigator Builds &mdash; <a href="https://github.com/aivelikivodja-bot" target="_blank">Nenad Vasic</a> &mdash; Montenegro &mdash; 2026</p>
         </div>
     </footer>
 
